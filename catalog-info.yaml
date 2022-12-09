@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: lighthouse-api-standards
+  description: Keeps track off all packages and plugins related to the Lighthouse API Standards
+  title: 'Lighthouse API Standards'
+  links:
+    - url: https://github.com/department-of-veterans-affairs/lighthouse-api-standards
+      title: Lighthouse API Standards
+      icon: web
+  annotations:
+    github.com/project-slug: department-of-veterans-affairs/lighthouse-api-standards
+    backstage.io/techdocs-ref: url:https://github.com/department-of-veterans-affairs/lighthouse-api-standards
+spec:
+  domain: lighthouse
+  system: lighthouse-api-standards
+  type: website
+  owner: lighthouse-cassowary
+  lifecycle: experimental
