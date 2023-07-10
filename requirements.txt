@@ -1,0 +1,4 @@
+pre-commit
+mkdocs-material==8.1.11
+mkdocs-techdocs-core==1.1.7
+material-va-lighthouse==1.2.0
