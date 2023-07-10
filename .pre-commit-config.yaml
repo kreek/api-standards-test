@@ -1,0 +1,13 @@
+repos:
+  - repo: local
+    hooks:
+      - id: markdown-link-check
+        name: Check Markdown links
+        entry: bash -c 'find docs -name "*.md" -print0 | xargs -0 -n1 npx markdown-link-check'
+        language: system
+        files: '.*\.md$'
+        pass_filenames: false
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.35.0
+    hooks:
+      - id: markdownlint
