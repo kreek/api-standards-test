@@ -66,17 +66,20 @@ The schema has separate fields for international country subdivisions (`province
 ```
 
 ## Country codes
+
 !!! success "Guidance"
     - Country codes **should** use [ISO 3166-1 alpha-3](https://www.iso.org/obp/ui/#search).
     - All other country subdivisions (Canadian provinces, Mexican states, UK counties, etc.) **should** also use the second part of their [ISO 3166-2 code](https://www.iso.org/obp/ui/#search).
 
 ## US state and territory codes
+
 !!! success "Guidance"
     - US state codes **should** use the USPS postal abbreviation, which is the second part of a [ISO 3166-2:US](https://www.iso.org/obp/ui/#iso:code:3166:US) code.
 
 Use the two letter United States Postal Service abbreviation for US states, the District of Columbia, US territories, Air/Army Post Office (APO) and Fleet Post Office (FPO).
 
 ### States
+
 | Name           | Abbreviation  |
 |----------------|---------------|
 | Alaska         | AK            |
@@ -131,11 +134,13 @@ Use the two letter United States Postal Service abbreviation for US states, the 
 | Wyoming        | WY            |
 
 ### Districts
+
 | Name                 | Abbreviation |
 |----------------------|--------------|
 | District of Columbia | DC           |
 
 ### Territories
+
 | Name                     | Abbreviation |
 |--------------------------|--------------|
 | American Samoa           | AS           |
@@ -145,6 +150,7 @@ Use the two letter United States Postal Service abbreviation for US states, the 
 | U.S. Virgin Islands      | VI           |
 
 ### Military AFO/FPOs
+
 | Name                                                 | Abbreviation |
 |------------------------------------------------------|--------------|
 | Armed Forces Americas                                | AA           |

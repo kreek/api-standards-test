@@ -11,11 +11,11 @@
     - The operation **should** return a `400` for _syntax_ data errors (such as invalid JSON).
     - The operation **should** return a `422` for _semantic_ data errors (such as failing application validation).
 
+## Creating a new resource
 
 In most cases, the service generates an identifier for the resource. In cases where an identifier is supplied by the API consumer, follow the guidance for [creating a resource with a consumer supplied identifier](#create-with-a-consumer-supplied-identifier).
 
-
-## Example request
+### Example create request
 
 ```json title="POST ../rx/v0/prescriptions"
 {
@@ -36,7 +36,7 @@ In most cases, the service generates an identifier for the resource. In cases wh
 }
 ```
 
-## Example response
+### Example create response
 
 For returning a 201 Created HTTP status code, the response body would confirm the resource had been created as shown below (in JSON::API format).
 
@@ -60,7 +60,7 @@ For returning a 201 Created HTTP status code, the response body would confirm th
 }
 ```
 
-## Example error
+### Example create error
 
 ```json title="422 Unprocessable Entity"
 {
@@ -81,9 +81,8 @@ Creating resources works differently when the consumer is supplying the identifi
 
 !!! success "Guidance"
     - A `PUT` method **should** be used, as the operation is idempotent even during creation.
-    - On successful *creation* a `201` **should** be returned with the created resource in the body.
-    - If the result is an *update* of an existing resource, a `204` **should** be returned with no response body.
+    - On successful _creation_ a `201` **should** be returned with the created resource in the body.
+    - If the result is an _update_ of an existing resource, a `204` **should** be returned with no response body.
     - The operation **should** return any errors inside an `errors` object.
     - The operation **should** return a `400` for _syntax_ data errors (such as invalid JSON).
     - The operation **should** return a `422` for _semantic_ data errors (such as failing application validation).
-

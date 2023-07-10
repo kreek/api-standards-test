@@ -16,4 +16,4 @@ spec:
   system: lighthouse-api-standards
   type: website
   owner: lighthouse-cassowary
-  lifecycle: experimental
+  lifecycle: Production

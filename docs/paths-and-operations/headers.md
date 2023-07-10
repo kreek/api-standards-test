@@ -13,15 +13,12 @@ The purpose of HTTP headers is to provide metadata information about the body or
     - API implementations **should not** introduce or depend on headers.
     - If available, HTTP standard headers **should** be used instead of creating a custom header.
 
-
 ## Accept
 
 This request header specifies the media types that the API client is capable of handling in the response. These API guidelines assume that APIs accept `application/json`.
 
 !!! success "Guidance"
     - APIs handling the request **should not** assume `Accept` is available.
-
-
 
 ## Accept-Charset
 
@@ -39,7 +36,7 @@ This request/response header is used to specify the language of the content.
 
 Example:
 
-```
+```http
 Content-Language: en-US
 ```
 
@@ -54,13 +51,13 @@ This request/response header indicates the media type of the request or response
 
 In a request:
 
-```
+```http
 Accept: application/json; Accept-Charset: utf-8
 ```
 
 In a response:
 
-```
+```http
 Content-Type: application/json; charset=utf-8
 ```
 
@@ -74,7 +71,6 @@ The Link `entity-header` field provides a means for serializing one or more link
 
 !!! success "Guidance"
     - APIs **should** prefer returning links within the response body's `meta` object.
-
 
 ## Location
 

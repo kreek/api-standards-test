@@ -14,7 +14,7 @@
     - The operation **should** return a `400` for _syntax_ data errors (such as invalid JSON).
     - The operation **should** return a `422` for _semantic_ data errors (such as failing application validation).
 
-### Example request
+### Example full update request
 
 ```json title="PUT ../rx/v0/prescriptions/1c2dfaaa-4eb9-482e-86a9-4e7274975967"
 {
@@ -35,7 +35,7 @@
 }
 ```
 
-### Example response
+### Example full update response
 
 ```json title="200 OK"
 {
@@ -56,7 +56,7 @@
 }
 ```
 
-### Example error
+### Example full update error
 
 ```json title="422 Unprocessable Entity"
 {
@@ -72,6 +72,7 @@
 ```
 
 ## Partial resource updates
+
 Web frameworks differ on which HTTP verb to use for partial resource updates, with some defaulting to `PUT` for partials updates rather than the REST-prescribed `PATCH`. Providers should prefer `PATCH`, but this is not a strict requirement.
 
 !!! warning "Requirement"
@@ -87,7 +88,7 @@ Web frameworks differ on which HTTP verb to use for partial resource updates, wi
     - The operation **should** return a `400` for _syntax_ data errors (such as invalid JSON).
     - The operation **should** return a `422` for _semantic_ data errors (such as failing application validation).
 
-### Example request
+### Example partial update request
 
 ```json title="PATCH ../rx/v0/prescriptions/1c2dfaaa-4eb9-482e-86a9-4e7274975967"
 {
@@ -100,7 +101,7 @@ Web frameworks differ on which HTTP verb to use for partial resource updates, wi
 }
 ```
 
-### Example response
+### Example partial update response
 
 ```json title="200 OK"
 {
@@ -121,7 +122,7 @@ Web frameworks differ on which HTTP verb to use for partial resource updates, wi
 }
 ```
 
-### Example error
+### Example partial update error
 
 ```json title="422 Unprocessable Entity"
 {

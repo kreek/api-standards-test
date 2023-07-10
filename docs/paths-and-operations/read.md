@@ -16,13 +16,13 @@ A collection resource should return a list of representation of all of the given
 
 The GET verb should not affect the system, and should not change the response on subsequent requests unless the underlying data changes (as in, it should be idempotent). Exceptions to 'changing the system' are typically instrumentation/logging-related. The list of data should be filtered based on the privileges available to the API client, so that it lists only the resoures for which the client has the authorization to view and not all the resources in the domain. Providing a summarized or minimized version of the data representation can reduce the bandwidth footprint in cases where individual resources contain a large object.
 
-### Example request
+### Example read collection request
 
 ```json title="GET ../rx/v0/prescriptions"
 // No request body 
 ```
 
-### Example response
+### Example read collection response
 
 ```json title="200 OK"
 {
@@ -61,7 +61,6 @@ The GET verb should not affect the system, and should not change the response on
 }
 ```
 
-
 ## Single resource
 
 !!! warning "Requirement"
@@ -77,13 +76,13 @@ A single resource is typically derived from the parent collection of resources a
 
 All identifiers for sensitive data should be non-sequential and preferably non-numeric. In scenarios where this data might be used as a subordinate to other data, immutable string identifiers should be used for easier readability and debugging (such as, `NAME_OF_VALUE` vs `1421321`).
 
-### Example request
+### Example single read request
 
 ```json title="GET ../rx/v0/prescriptions/1c2dfaaa-4eb9-482e-86a9-4e7274975967"
 // No request body
 ```
 
-### Example response
+### Example single read response
 
 If the resource with that id is found, return a `200` 'OK' status code. The response body should include the resource type and id as shown below in JSON::API format.
 
