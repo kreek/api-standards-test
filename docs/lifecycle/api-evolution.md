@@ -8,18 +8,17 @@ API Evolution is an enhancement strategy for APIs where major versioning is unne
 !!! success "Guidance"
     - Providers **should** design APIs in a forward and extensible way to maintain compatibility and avoid duplication of resources, functionality, and excessive versioning.
 
-
 ## Extensibility
 
 An evolvable API is extensible, but designing for extensibility takes special care and forethought since it's possible for early design decisions to make later extensibility of an API more difficult.
 
 The following practices are not extensible:
 
-- Ordered query or request body parameters 
+- Ordered query or request body parameters
 - Returning one error rather an array of errors in responses
 - Flat data in request and response bodies
 
-For example, if a response to a payment history API returned a flat list of payment identifiers, like what is below, then adding additional data--without versioning--would be impossible. 
+For example, if a response to a payment history API returned a flat list of payment identifiers, like what is below, then adding additional data--without versioning--would be impossible.
 
 ```json
 {
@@ -30,7 +29,9 @@ For example, if a response to a payment history API returned a flat list of paym
 }
 
 ```
-If we later want to return a payment date there is nowhere to attach it. A more extensible solution is to wrap data in an object with named fields. Using a resource in the response is even safer. For example: 
+
+If we later want to return a payment date there is nowhere to attach it. A more extensible solution is to wrap data in an object with named fields. Using a resource in the response is even safer. For example:
+
 ```json
 {
   "data": [
@@ -53,8 +54,10 @@ If we later want to return a payment date there is nowhere to attach it. A more 
   ]
 }
 ```
+
 ### Extensible names
-Be specific and detailed when choosing names to avoid future limitations. While an endpoint in your API may initially only return one (mailing) address, like this: 
+
+Be specific and detailed when choosing names to avoid future limitations. While an endpoint in your API may initially only return one (mailing) address, like this:
 
 ```json
 {
@@ -67,7 +70,7 @@ Be specific and detailed when choosing names to avoid future limitations. While 
 }
 ```
 
-It may need to return both a residential and a mailing address in the future. Using extensible names at the start would allow an easier shift to a response like this: 
+It may need to return both a residential and a mailing address in the future. Using extensible names at the start would allow an easier shift to a response like this:
 
 ```json
 {
@@ -87,35 +90,36 @@ It may need to return both a residential and a mailing address in the future. Us
 ```
 
 ## Adding new endpoints
+
 !!! success "Guidance"
     - Adding a new endpoint or a method to an existing path is an evolutionary change. Incrementing the major version in these cases is **not recommended**.
 
 Consumers or product owners may consider *multiple* new endpoints a major change. Still, it is up to the provider to decide if the major version needs to be bumped.
 
 ## Evolving requests
+
 !!! warning "Requirement"
     - There **must** NOT be any change in the HTTP verbs (such as GET, POST, and so on) supported by an existing URI.
     - Query-parameters **must** be unordered.
     - New query parameters appended to URIs **must** be optional.
 
-
 ### Renaming endpoint paths
 
-If an endpoint's path needs to be renamed, a provider should do so in an additive manner so that it is effectively a new endpoint with the same functionality. The provider should keep and mark the old endpoint as [deprecated](/lifecycle/deprecation).
+If an endpoint's path needs to be renamed, a provider should do so in an additive manner so that it is effectively a new endpoint with the same functionality. The provider should keep and mark the old endpoint as [deprecated](deprecation.md).
 
 ### Adding query parameters
 
-While providers should only do so in moderation, adding optional query parameters can avoid versioning an API due to relatively minor changes in functionality. 
+While providers should only do so in moderation, adding optional query parameters can avoid versioning an API due to relatively minor changes in functionality.
 
 For example, if we wanted to add pagination to a resource collection endpoint that was previously not paged, such as:
 
-```
+```http
 ../v0/claims
 ```
 
 then we could append optional `pageNumber` and `pageSize` query parameters to the request, like this:
 
-```
+```http
 ../v0/claims?pageNumber=2&pageSize=10
 ```
 
@@ -128,14 +132,11 @@ As long as the original call signature of the endpoint functions as before, mean
     - There **must** NOT be any change in the name and type of the request or response headers of an URI.
     - New headers **must** be optional.
 
-
 ### Adding fields
 
-As shown in the [Extensibility](#extensibility) section above, adding fields as long as they are within an object would not require versioning because adding fields is an additive change, which existing consumer apps could ignore. For example: 
+As shown in the [Extensibility](#extensibility) section above, adding fields as long as they are within an object would not require versioning because adding fields is an additive change, which existing consumer apps could ignore. For example:
 
-*Before the addition*
-
-```json
+```json title="Before the addition"
 {
     "id": "2c7a317a-40d0-4ec7-92ef-df954a6f2818",
     "type": "PaymentHistory",
@@ -146,9 +147,7 @@ As shown in the [Extensibility](#extensibility) section above, adding fields as 
 }
 ```
 
-*After the addition*
-
-```json
+```json title="After the addition"
 {
     "id": "2c7a317a-40d0-4ec7-92ef-df954a6f2818",
     "type": "PaymentHistory",
@@ -162,14 +161,12 @@ As shown in the [Extensibility](#extensibility) section above, adding fields as 
 
 ### Renaming fields
 
-If a field needs to be renamed, you should do so in an additive manner and not remove the old field. Instead, mark the old field as [deprecated](/lifecycle/deprecation). 
+If a field needs to be renamed, you should do so in an additive manner and not remove the old field. Instead, mark the old field as [deprecated](deprecation.md).
 
 While this results in some duplication over the sunset period for the old name, it will not break applications still expecting that field.
 For example, if a provider needed to add a second date to an object that already had a date field, you could rename the old one for clarity.
 
-*Adding ‘approvalDate’ and renaming ‘date’ to ‘paymentDate’*
-
-```json
+```json title="Adding ‘approvalDate’ and renaming ‘date’ to ‘paymentDate’"
 {
     "id": "2c7a317a-40d0-4ec7-92ef-df954a6f2818",
     "type": "PaymentHistory",

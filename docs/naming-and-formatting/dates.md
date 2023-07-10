@@ -9,7 +9,6 @@
     - Durations **should** follow the [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601#Durations).
     - Time Intervals **should** follow the [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals).
 
-
 ## Dates
 
 If your field only needs a date rather than a complete timestamp, use the ISO 8601 format `YYYY-MM-DD`.
@@ -67,16 +66,15 @@ If you do need to capture or return the time zone for an event, use an additiona
 
 Durations represent an amount of time, in the format `P[n]Y[n]M[n]DT[n]H[n]M[n]S`, where:
 
-
 - P is the duration designator (for period) placed at the start of the duration representation.
-    - Y is the year designator that follows the value for the number of calendar years.
-    - M is the month designator that follows the value for the number of calendar months.
-    - W is the week designator that follows the value for the number of weeks.
-    - D is the day designator that follows the value for the number of calendar days.
+  - Y is the year designator that follows the value for the number of calendar years.
+  - M is the month designator that follows the value for the number of calendar months.
+  - W is the week designator that follows the value for the number of weeks.
+  - D is the day designator that follows the value for the number of calendar days.
 - T is the time designator that precedes the time components of the representation.
-    - H is the hour designator that follows the value for the number of hours.
-    - M is the minute designator that follows the value for the number of minutes.
-    - S is the second designator that follows the value for the number of seconds.
+  - H is the hour designator that follows the value for the number of hours.
+  - M is the minute designator that follows the value for the number of minutes.
+  - S is the second designator that follows the value for the number of seconds.
 
 You do not need to include all the duration and time designators.
 
@@ -91,6 +89,7 @@ You do not need to include all the duration and time designators.
   "duration": "P3Y6M"
 }
 ```
+
 ```json title="Three years"
 {
   "duration": "P3Y"

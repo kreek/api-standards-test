@@ -1,9 +1,14 @@
 # Architecture
 
-!!! success "Guidance"
-    - Lighthouse APIs **should** use a RESTful architecture.
-    - SOAP, RPC, or GraphQL, are **not recommended** as they are unsupported by our tooling.
+!!! warning "Requirement"
+    - APIs **must** use a RESTful architecture
+    - APIs **must** be stateless
+    - APIs **must** be cache compatible
+    - APIs **must** be able to work as a component of a layered system
 
+!!! success "Guidance"
+    - SOAP is **not recommended**.
+    - Modern remote procedure call (RPC) style API architectures such as [GraphQL](https://graphql.org) or [gRPC](https://grpc.io) are being evaluated for use on Lighthouse. However, as they are currently unsupported by our tooling, they are **not recommended** at this time.
 
 ## REST
 
@@ -30,6 +35,7 @@ PUT ../rx/v0/prescriptions/e526c85d-29fc-432c-a16d-df5cdfce2a62
 ```
 
 ### Constraints of a RESTful system
+
 Roy Fielding designed REST to facilitate building distributed systems that are efficient, scalable, and reliable. His PhD dissertation ["Architectural Styles
 and the Design of Network-based Software Architectures"](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) explains this in great detail. This guide does not reproduce that dissertation here, however an API is 'RESTful' if it meets the following constraints[^1]:
 
@@ -39,4 +45,4 @@ and the Design of Network-based Software Architectures"](https://www.ics.uci.edu
 - **Layered system**: The client is only aware of the details of the server. It does not know or need to know about systems two or more layers down supporting the server.
 - **Uniform interface**: Resources and the manipulation of their state via standard HTTP methods guide the development of a consistent interface.
 
-[^1]: An optional sixth constraint, 'Code on demand', in which the server transfers executable code to the client **must not** be implemented in Lighthouse APIs due to security concerns. 
+[^1]: An optional sixth constraint, 'Code on demand', in which the server transfers executable code to the client **must not** be implemented in Lighthouse APIs due to security concerns.

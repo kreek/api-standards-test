@@ -13,7 +13,7 @@ The government contracting model and the sheer size of the VA mean hundreds of t
 
 The focus of the standards are the 'I' in API, the interface. It is not an application design guide or a programming manual. How teams develop an API behind that interface is up to them. The guide's main goal is to outline common interface and documentation standards for APIs deployed in Lighthouse.
 
-We do not intend for this guide to be read back-to-front. That said, the first section, [General Guidelines](/general-guidelines), applies to all APIs on Lighthouse, and implementing teams should read it in its entirety. 
+We do not intend for this guide to be read back-to-front. That said, the first section, [General Guidelines](general-guidelines), applies to all APIs on Lighthouse, and implementing teams should read it in its entirety.
 
 The remaining sections are more of a field manual or cookbook that is skimmed initially. Later, when presented with a problem whose solution is ambiguous, teams can reference this guide for Lighthouse's recommended solution or design pattern.
 

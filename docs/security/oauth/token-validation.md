@@ -9,7 +9,7 @@ The format and structure of the token may vary depending on the issuer and audie
 
 Requests sent to your APIs should include an access token as a [bearer authorization header](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1) for services that require authorization.
 
-```
+```http
 Authorization: Bearer xyz
 ```
 
@@ -32,15 +32,24 @@ An example request and response for a patient’s health API token is shown belo
 !!! info
     - Request values such as aud and response values will vary for your API and use cases.
 
+!!! warning "Requirement"
+    - The `Content-Type` header must be `application/x-www-form-urlencoded`
+
 ```bash title="Sample Request"
 curl \
-  --request POST \
-  --header "apikey: $KEY" \
-  --header "Authorization: Bearer $ACCESS_TOKEN" \
-  --header 'Content-Type: application/x-www-form-urlencoded' \
-  --data-urlencode 'aud=https://sandbox-api.va.gov/services/fhir' \
+  --request POST \ # (1)
+  --header "apikey: $KEY" \ # (2)
+  --header "Authorization: Bearer $ACCESS_TOKEN" \ # (3)
+  --header 'Content-Type: application/x-www-form-urlencoded' \ # (4)
+  --data-urlencode 'aud=https://sandbox-api.va.gov/services/fhir' \ # (5)
   'https://sandbox-api.va.gov/internal/auth/v2/validation'
 ```
+
+1. Ensure the request method is `POST` rather than `GET`
+2. Make sure to replace `$KEY` with your API key.
+3. Make sure to replace `$ACCESS_TOKEN` with the access token you are validating.
+4. Note that the `Content-Type` header is `application/x-www-form-urlencoded`.
+5. The body must be URL encoded.
 
 ```json title="Sample Response"
 {

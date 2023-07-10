@@ -21,7 +21,7 @@ Health checks are required to be standalone endpoints rather than repurposed end
 
 Below is an example health check URI and response for a fictional 'Rx' API on Lighthouse.
 
-```
+```http
 GET https://api.va.gov/services/rx/v1/healthcheck
 ```
 
@@ -47,4 +47,6 @@ There is not a finalized RFC for healthcheck responses. A [draft proposal](https
 }
 ```
 
+### Accessibility
 
+APIs must provide a health check endpoint that Lighthouse monitoring tools can access so they can monitor the status of the API. API consumers can then take appropriate action if an API cannot handle requests or is unhealthy. The health check endpoint or endpoints made available to consumers of an API must not provide internal or sensitive information within the response. In addition, the health check must reflect the state of the interface, not the service behind that interface.

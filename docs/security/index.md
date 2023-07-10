@@ -9,3 +9,9 @@ APIs that involve user authentication, personally identifiable information (PII)
 The flowchart below can help you determine which one to use.
 
 ![OAuth or API Key Flowchart](../assets/images/auth-oauth-or-apikey-flowchart.svg)
+
+## Rate limit
+
+The default rate limit is 60 requests per minute for each consumer. For open
+data or API key-secured APIs it is tracked per IP address. This can be overridden on a
+case-by-case basis. Please contact our API provider support team for more information.

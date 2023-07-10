@@ -6,23 +6,22 @@
     - XML **may** be used when interfacing with legacy systems.
     - Binary data formats (ProtoBufs, Avro, Thrift) are **not recommended** for public-facing APIs.
 
-
 ## JSON
 
 !!! warning "Requirement"
     - JSON **must** conform to the JSON Data Interchange Format described in [RFC 7159](https://datatracker.ietf.org/doc/html/rfc7159)
     - Request and response bodies **must** be valid against [JSON Schema Draft v4](https://json-schema.org/specification.html) or higher.
 
-
 As REST is the dominant web API architecture, JSON is the dominant web data-interchange format.
 
 REST APIs revolve around resources. They are better described using JSON's structured data than a markup language that structures information, such as XML.
 
 JSON's advantages over XML include:
- - Its shared data model, obviously with JavaScript, but also with any language that implements booleans, numbers, strings, arrays, and objects (or objects like data structures, i.e. dictionaries or hashes). 
- - It produces a smaller payload than XML. 
- - In most languages, it compresses (gzips) faster. 
- - is more human-readable than XML. 
+
+- Its shared data model, obviously with JavaScript, but also with any language that implements booleans, numbers, strings, arrays, and objects (or objects like data structures, i.e. dictionaries or hashes).
+- It produces a smaller payload than XML.
+- In most languages, it compresses (gzips) faster.
+- is more human-readable than XML.
 
 ## Information models
 

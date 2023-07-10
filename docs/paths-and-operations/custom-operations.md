@@ -1,27 +1,29 @@
 # Custom Operations
 
 !!! warning "Requirement"
-    - If the HTTP method chosen for the custom operation does not accept a request body (`GET` or `DELETE`), the operation **must not** send one.
+    - If the HTTP method chosen for the custom operation does not accept a request
+body (`GET` or `DELETE`), the operation **must not** send one.
 
 !!! success "Guidance"
     - Providers **should** show that a custom operation was intentional by ending the path with a verb.
     - Custom operations with body parameters **should** default to the `POST` method.
     - Custom operations **should** not use the `PATCH` method.
 
-
-Providers should choose from the 5 standard HTTP methods whenever workable, using custom operations only for custom functionality that falls outside of the uses of one of the standard methods.
+Providers should choose from the 5 standard HTTP methods whenever workable, using
+custom operations only for custom functionality that falls outside the uses of
+one of the standard methods.
 
 ## Example using GET
 
 In this example of getting tracking information for a prescription, the request does not need to send any parameters. Therefore, a `GET` method is preferred as it is the standard REST method for reading a resource.
 
-### Example response
+### Example response no body
 
 ```json title="POST .../rx/v1/prescriptions/1c2dfaaa-4eb9-482e-86a9-4e7274975967/track"
 // No request body 
 ```
 
-### Example response
+### Example response with body
 
 ```json title="200 OK"
 {
@@ -42,9 +44,13 @@ In this example of getting tracking information for a prescription, the request 
 
 ## Example using POST
 
-In this example, which contains (mock) PII, we're sending a prescription search query that includes a mock SSN number in a `POST` body. The request side of the operation uses a custom `Query` resource that is not persisted in the system and can not be retrieved. However, the operation returns a response that would look almost identical to a `Prescription` resource collection's read operation.
+In this example, which contains (mock) PII, we're sending a prescription search
+query that includes a mock SSN number in a `POST` body. The request side of the
+operation uses a custom `Query` resource that is not persisted in the system and
+can not be retrieved. However, the operation returns a response that would look
+almost identical to a `Prescription` resource collection's read operation.
 
-### Example request
+### Example query request
 
 ```json title="POST .../rx/v1/prescriptions/search"
 {
@@ -58,7 +64,7 @@ In this example, which contains (mock) PII, we're sending a prescription search 
 }
 ```
 
-### Example response
+### Example query response
 
 ```json title="200 OK"
 {
