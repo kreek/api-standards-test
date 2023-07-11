@@ -22,6 +22,13 @@ jobs:
             mkdocs-material-
       - run: pip install -r requirements.txt
 
+      - name: Create temporary branch
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        run: |
+          git branch pr-preview-${{ github.event.pull_request.number }}
+          git checkout pr-preview-${{ github.event.pull_request.number }}
+          git push -u origin pr-preview-${{ github.event.pull_request.number }}
+
       - name: Modify mkdocs.yml
         run: |
           sed -i "s/site_url:.*/site_url: 'https:\/\/<username>.github.io\/<repository>\/pr-preview-${{ github.event.pull_request.number }}'/" mkdocs.yml
