@@ -1,5 +1,5 @@
 site_name: Lighthouse API Standards
-site_url: https://kreek.github.io/lighthouse-api-standards/
+site_url: 'https://<username>.github.io/<repository>/pr-preview-2'
 theme:
   name: material
   logo: 'assets/images/lighthouse-logo-for-MKDocs.png'
