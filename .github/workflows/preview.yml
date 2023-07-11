@@ -26,13 +26,16 @@ jobs:
         run: |
           sed -i "s/site_url:.*/site_url: 'https:\/\/<username>.github.io\/<repository>\/pr-preview-${{ github.event.pull_request.number }}'/" mkdocs.yml
 
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+
       - name: Commit and push changes
         run: |
           git add mkdocs.yml
           git commit -m "Update mkdocs.yml for preview branch"
           git push
-
-      - run: mkdocs gh-deploy --force
 
       - name: Deploy to temporary branch
         if: github.event_name == 'pull_request' && github.event.action != 'closed'
