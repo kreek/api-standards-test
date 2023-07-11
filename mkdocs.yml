@@ -1,5 +1,5 @@
 site_name: Lighthouse API Standards
-site_url: https://department-of-veterans-affairs.github.io/lighthouse-api-standards/
+site_url: https://kreek.github.io/lighthouse-api-standards/
 theme:
   name: material
   logo: 'assets/images/lighthouse-logo-for-MKDocs.png'

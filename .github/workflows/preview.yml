@@ -1,0 +1,63 @@
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened, closed ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+      - run: pip install -r requirements.txt
+
+      - name: Create temporary branch
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        run: |
+          git branch pr-preview-${{ github.event.pull_request.number }}
+          git checkout pr-preview-${{ github.event.pull_request.number }}
+          git push -u origin pr-preview-${{ github.event.pull_request.number }}
+
+      - name: Modify mkdocs.yml
+        run: |
+          sed -i "s/site_url:.*/site_url: 'https:\/\/<username>.github.io\/<repository>\/pr-preview-${{ github.event.pull_request.number }}'/" mkdocs.yml
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "<>"
+
+      - name: Commit and push changes
+        run: |
+          git add mkdocs.yml
+          git commit -m "Update mkdocs.yml for preview branch"
+          git push
+
+      - name: Deploy to temporary branch
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          BRANCH: pr-preview-${{ github.event.pull_request.number }}
+          FOLDER: site
+          CLEAN: true
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        uses: thollander/actions-comment-pull-request@1.0.1
+        with:
+          message: 'Preview site is available at: https://kreek.github.io/api-standards-test/pr-preview-${{ github.event.pull_request.number }}'
+
+      - name: Delete preview branch
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        run: git push origin --delete pr-preview-${{ github.event.pull_request.number }}
