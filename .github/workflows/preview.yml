@@ -21,6 +21,17 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install -r requirements.txt
+
+      - name: Modify mkdocs.yml
+        run: |
+          sed -i "s/site_url:.*/site_url: 'https:\/\/<username>.github.io\/<repository>\/pr-preview-${{ github.event.pull_request.number }}'/" mkdocs.yml
+
+      - name: Commit and push changes
+        run: |
+          git add mkdocs.yml
+          git commit -m "Update mkdocs.yml for preview branch"
+          git push
+
       - run: mkdocs gh-deploy --force
 
       - name: Deploy to temporary branch
