@@ -35,7 +35,7 @@ jobs:
         if: github.event_name == 'pull_request' && github.event.action != 'closed'
         uses: thollander/actions-comment-pull-request@1.0.1
         with:
-          message: 'Preview site is available at: https://<username>.github.io/<repository>/pr-preview-${{ github.event.pull_request.number }}'
+          message: 'Preview site is available at: https://kreek.github.io/api-standards-test/pr-preview-${{ github.event.pull_request.number }}'
 
       - name: Delete preview branch
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
