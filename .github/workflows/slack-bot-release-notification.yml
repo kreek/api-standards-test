@@ -1,0 +1,52 @@
+name: Notify Slack of New Release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Prepare Slack Payload
+        id: prepare_payload
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          RELEASE_BODY=${{ github.event.release.body }}
+          RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g')
+          
+          PAYLOAD=$(cat <<- EOM
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":sparkles: *Version $VERSION of the Lighthouse API Standards has been released:*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "$RELEASE_BODY_ESCAPED"
+                  }
+                }
+              ]
+            }
+          EOM
+          )
+          echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
+
+      - name: Send custom JSON data to Slack workflow
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: ${{ env.PAYLOAD }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
