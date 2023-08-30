@@ -10,45 +10,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Prepare Slack Payload
-        id: prepare_payload
-        run: |
-          VERSION=${{ github.event.release.tag_name }}
-          RELEASE_BODY=${{ github.event.release.body }}
-          
-          # Escape and Encode
-          RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g' | base64 --wrap=0)
-          
-          PAYLOAD=$(cat <<- EOM
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": ":sparkles: *Version $VERSION of the Lighthouse API Standards has been released:*"
-                  }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "$(echo "$RELEASE_BODY_ESCAPED" | base64 --decode)"
-                  }
+    - name: Prepare Slack Payload
+      id: prepare_payload
+      run: |
+        VERSION="${{ github.event.release.tag_name }}"
+        RELEASE_BODY="${{ github.event.release.body }}"
+        
+        # Escape and Encode
+        RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g' | base64 --wrap=0)
+
+        PAYLOAD=$(cat <<- EOM
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": ":sparkles: *Version $VERSION of the Lighthouse API Standards has been released:*"
                 }
-              ]
-            }
-          EOM
-          )
-          echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "$(echo "$RELEASE_BODY_ESCAPED" | base64 --decode)"
+                }
+              }
+            ]
+          }
+        EOM
+        )
+        echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
 
-      - name: Send custom JSON data to Slack workflow
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: ${{ env.PAYLOAD }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+    - name: Send custom JSON data to Slack workflow
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: ${{ env.PAYLOAD }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
