@@ -1,4 +1,4 @@
-# Lighthouse API Standards
+# Lighthouse API Standards (test)
 
 This is the repo for the Lighthouse API standards hosted at
 [https://department-of-veterans-affairs.github.io/lighthouse-api-standards](https://department-of-veterans-affairs.github.io/lighthouse-api-standards).
