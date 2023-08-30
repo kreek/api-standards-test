@@ -18,8 +18,7 @@ jobs:
 
       - name: Generate Slack message payload
         id: generate_payload
-        run: |
-          python ./slack_bot_generate_payload.py
+        run: python ${{ github.workspace }}/.github/workflows/slack_bot_generate_payload.py
         env:
           VERSION: ${{ github.event.release.tag_name }}
           RELEASE_BODY: ${{ github.event.release.body }}
