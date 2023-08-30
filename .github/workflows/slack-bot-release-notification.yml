@@ -5,7 +5,7 @@ on:
     types: [published]
     
 jobs:
-  your_job_name:
+  publish_release_notes:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
       - name: Generate Slack message payload
         id: generate_payload
         run: |
-          python slack_bot_generate_payload.py
+          python ./slack_bot_generate_payload.py
         env:
           VERSION: ${{ github.event.release.tag_name }}
           RELEASE_BODY: ${{ github.event.release.body }}
