@@ -5,7 +5,7 @@ on:
     types: [published]
     
 jobs:
-  your_job_name:
+  publish_release_notes:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
