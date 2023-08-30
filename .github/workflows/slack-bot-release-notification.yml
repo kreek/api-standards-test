@@ -13,15 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Prepare Slack Payload
-      id: prepare_payload
+    - name: Send Slack Notification
       run: |
         VERSION="${{ github.event.release.tag_name }}"
         RELEASE_BODY="${{ github.event.release.body }}"
+        RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g')
         
-        # Escape and Encode
-        RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g' | base64 --wrap=0)
-
         PAYLOAD=$(cat <<- EOM
           {
             "blocks": [
@@ -36,19 +33,12 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "$(echo "$RELEASE_BODY_ESCAPED" | base64 --decode)"
+                  "text": "$RELEASE_BODY_ESCAPED"
                 }
               }
             ]
           }
         EOM
         )
-        echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
 
-    - name: Send custom JSON data to Slack workflow
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: ${{ env.PAYLOAD }}
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" ${{ secrets.SLACK_WEBHOOK_URL }}
