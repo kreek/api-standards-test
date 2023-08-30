@@ -18,7 +18,9 @@ jobs:
         run: |
           VERSION=${{ github.event.release.tag_name }}
           RELEASE_BODY=${{ github.event.release.body }}
-          RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g')
+          
+          # Escape and Encode
+          RELEASE_BODY_ESCAPED=$(echo "$RELEASE_BODY" | sed 's/"/\\"/g; s/\n/\\n/g' | base64 --wrap=0)
           
           PAYLOAD=$(cat <<- EOM
             {
@@ -34,7 +36,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "$RELEASE_BODY_ESCAPED"
+                    "text": "$(echo "$RELEASE_BODY_ESCAPED" | base64 --decode)"
                   }
                 }
               ]
