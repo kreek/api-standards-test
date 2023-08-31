@@ -38,7 +38,7 @@ def generate_payload():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f":sparkles: *Version {version} of the Lighthouse API Standards has been released*"
+                    "text": f":sparkles: *Version {version} of the API Standards has been released*"
                 }
             },
             {
