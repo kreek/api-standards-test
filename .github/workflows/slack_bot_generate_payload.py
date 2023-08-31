@@ -38,7 +38,7 @@ def generate_payload():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f":sparkles: *Version {version} of the Lighthouse API Standards has been released:*"
+                    "text": f":sparkles: *Version {version} of the Lighthouse API Standards has been released*"
                 }
             },
             {
@@ -56,7 +56,7 @@ def generate_payload():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "A full list of changes are available in the <https://department-of-veterans-affairs.github.io/lighthouse-api-standards/changelog/|change log>."
+                    "text": "A complete history of releases is available in the <https://department-of-veterans-affairs.github.io/lighthouse-api-standards/changelog/|change log>."
                 }
             }
         ]
